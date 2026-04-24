@@ -1,0 +1,44 @@
+{
+  "name": "@password-use/password-use",
+  "version": "0.2.0",
+  "description": "Deterministic password generator CLI",
+  "type": "module",
+  "publishConfig": {
+    "access": "public"
+  },
+  "main": "dist/cli.cjs",
+  "bin": {
+    "password-use": "dist/cli.cjs"
+  },
+  "files": [
+    "dist",
+    "README.md",
+    "README.*.md"
+  ],
+  "scripts": {
+    "build": "node scripts/build.mjs",
+    "dev": "tsx src/cli.ts",
+    "start": "node dist/cli.cjs",
+    "test": "vitest run",
+    "test:watch": "vitest"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@inquirer/prompts": "^8.4.2",
+    "argon2": "^0.44.0",
+    "bip39": "^3.1.0",
+    "clipboardy": "^5.3.1",
+    "commander": "^14.0.3"
+  },
+  "devDependencies": {
+    "@password-use/crypto-adapter": "workspace:*",
+    "@password-use/sdk-types": "workspace:*",
+    "@types/node": "^25.6.0",
+    "esbuild": "^0.28.0",
+    "tsx": "^4.21.0",
+    "typescript": "^6.0.3",
+    "vitest": "^4.1.5"
+  }
+}
