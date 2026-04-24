@@ -6,16 +6,27 @@ import {
   writeStore
 } from "@password-use/crypto-adapter";
 import { t } from "../i18n.js";
-import type { PasswordCliOutputOptions } from "../types.js";
+import type { RotateCliOptions } from "../types.js";
 import { promptMasterPasswordDecryptSeed, selectEntry } from "./shared.js";
 
-export async function rotateCommand(options: PasswordCliOutputOptions = {}): Promise<void> {
+const SEQUENCE_MIN = 0;
+const SEQUENCE_MAX = 10000;
+
+export async function rotateCommand(options: RotateCliOptions = {}): Promise<void> {
   const store = await readStore();
   if (!store.account) {
     throw new Error(await t("cmdNotInitialized"));
   }
+  const delta = options.delta ?? 1;
+  if (!Number.isInteger(delta)) {
+    throw new Error(await t("rotateDeltaInvalid"));
+  }
   const entry = await selectEntry(store.entries);
-  const rotated = { ...entry, sequence: entry.sequence + 1 };
+  const nextSequence = entry.sequence + delta;
+  if (nextSequence < SEQUENCE_MIN || nextSequence > SEQUENCE_MAX) {
+    throw new Error(await t("rotateOutOfRange", { min: SEQUENCE_MIN, max: SEQUENCE_MAX }));
+  }
+  const rotated = { ...entry, sequence: nextSequence };
   store.entries = updateEntry(store.entries, rotated);
   await writeStore(store);
 

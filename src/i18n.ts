@@ -9,6 +9,7 @@ type Dict = {
   cmdShowDesc: string;
   cmdGenerateDesc: string;
   cmdRotateDesc: string;
+  cmdRotateArgDesc: string;
   cmdLogoutDesc: string;
   cmdLanguageDesc: string;
   cmdLanguageArgDesc: string;
@@ -30,6 +31,8 @@ type Dict = {
   copiedMasked: string;
   rotateDone: string;
   rotateCopied: string;
+  rotateDeltaInvalid: string;
+  rotateOutOfRange: string;
   showPassword: string;
   generatePassword: string;
   newPassword: string;
@@ -85,6 +88,7 @@ const EN: Dict = {
   cmdShowDesc: "Show password for current sequence (no rotate). {passwordOutputHelp}",
   cmdGenerateDesc: "Generate password. {passwordOutputHelp}",
   cmdRotateDesc: "Rotate sequence and generate a new password. {passwordOutputHelp}",
+  cmdRotateArgDesc: "Sequence delta (default +1, supports +/-N)",
   cmdLogoutDesc: "Verify master password and clear all local data",
   cmdLanguageDesc: "Set or display CLI language",
   cmdLanguageArgDesc: "Language code (en, zh-CN, fr, ja, ko, de, es, pt)",
@@ -106,6 +110,8 @@ const EN: Dict = {
   copiedMasked: "Password copied to clipboard (plaintext not shown in terminal).",
   rotateDone: "Rotated {name} to sequence={seq}",
   rotateCopied: "New password copied to clipboard (plaintext not shown in terminal).",
+  rotateDeltaInvalid: "Delta must be an integer, e.g. 1, 10, -10",
+  rotateOutOfRange: "Sequence out of range after rotate. Valid range: {min}~{max}",
   showPassword: "Current password ({name}, seq={seq}): {password}",
   generatePassword: "Generated password ({name}): {password}",
   newPassword: "New password: {password}",
@@ -151,6 +157,7 @@ const ZH: Dict = {
   cmdShowDesc: "查看当前序列对应的密码（不轮换）。{passwordOutputHelp}",
   cmdGenerateDesc: "生成密码。{passwordOutputHelp}",
   cmdRotateDesc: "序列 +1 后生成新密码。{passwordOutputHelp}",
+  cmdRotateArgDesc: "序列变更值（默认 +1，支持 +/-N）",
   cmdLogoutDesc: "验证主密码并清理本地所有数据",
   cmdLanguageDesc: "设置或查看 CLI 语言",
   cmdLanguageArgDesc: "语言代码（en, zh-CN, fr, ja, ko, de, es, pt）",
@@ -172,6 +179,8 @@ const ZH: Dict = {
   copiedMasked: "密码已复制到剪贴板（未在终端显示明文）。",
   rotateDone: "已轮换 {name} 到 sequence={seq}",
   rotateCopied: "新密码已复制到剪贴板（未在终端显示明文）。",
+  rotateDeltaInvalid: "步长必须是整数，例如 1、10、-10",
+  rotateOutOfRange: "轮换后序列超出范围，合法范围：{min}~{max}",
   showPassword: "当前密码({name}, seq={seq}): {password}",
   generatePassword: "生成密码({name}): {password}",
   newPassword: "新密码: {password}",
@@ -241,6 +250,7 @@ const JA: Dict = {
   cmdShowDesc: "現在のシーケンスのパスワードを表示（ローテーションなし）。{passwordOutputHelp}",
   cmdGenerateDesc: "パスワードを生成。{passwordOutputHelp}",
   cmdRotateDesc: "シーケンスを +1 して新しいパスワードを生成。{passwordOutputHelp}",
+  cmdRotateArgDesc: "シーケンス差分（既定 +1、+/-N 対応）",
   cmdLanguageDesc: "CLI の言語を設定または表示",
   cmdLanguageArgDesc: "言語コード（en, zh-CN, fr, ja, ko, de, es, pt）",
   passwordOutputHelp: "既定ではクリップボードにコピーし、平文は表示しません",
@@ -269,6 +279,7 @@ const KO: Dict = {
   cmdShowDesc: "현재 시퀀스의 비밀번호 보기(회전 없음). {passwordOutputHelp}",
   cmdGenerateDesc: "비밀번호 생성. {passwordOutputHelp}",
   cmdRotateDesc: "시퀀스를 +1 하고 새 비밀번호 생성. {passwordOutputHelp}",
+  cmdRotateArgDesc: "시퀀스 증감값 (기본 +1, +/-N 지원)",
   cmdLanguageDesc: "CLI 언어 설정 또는 조회",
   cmdLanguageArgDesc: "언어 코드 (en, zh-CN, fr, ja, ko, de, es, pt)",
   passwordOutputHelp: "기본값은 클립보드 복사이며 평문은 출력하지 않습니다",
@@ -297,6 +308,7 @@ const DE: Dict = {
   cmdShowDesc: "Passwort fuer aktuelle Sequenz anzeigen (ohne Rotation). {passwordOutputHelp}",
   cmdGenerateDesc: "Passwort erzeugen. {passwordOutputHelp}",
   cmdRotateDesc: "Sequenz +1 und neues Passwort erzeugen. {passwordOutputHelp}",
+  cmdRotateArgDesc: "Sequenz-Delta (Standard +1, +/-N unterstuetzt)",
   cmdLanguageDesc: "CLI-Sprache setzen oder anzeigen",
   cmdLanguageArgDesc: "Sprachcode (en, zh-CN, fr, ja, ko, de, es, pt)",
   passwordOutputHelp: "Standardmaessig in Zwischenablage kopieren, Klartext nicht anzeigen",
@@ -325,6 +337,7 @@ const ES: Dict = {
   cmdShowDesc: "Mostrar contrasena de la secuencia actual (sin rotar). {passwordOutputHelp}",
   cmdGenerateDesc: "Generar contrasena. {passwordOutputHelp}",
   cmdRotateDesc: "Incrementar secuencia y generar nueva contrasena. {passwordOutputHelp}",
+  cmdRotateArgDesc: "Delta de secuencia (por defecto +1, soporta +/-N)",
   cmdLanguageDesc: "Configurar o mostrar idioma del CLI",
   cmdLanguageArgDesc: "Codigo de idioma (en, zh-CN, fr, ja, ko, de, es, pt)",
   passwordOutputHelp: "Por defecto copia al portapapeles y no muestra texto plano",
@@ -353,6 +366,7 @@ const PT: Dict = {
   cmdShowDesc: "Mostrar senha da sequencia atual (sem rotacao). {passwordOutputHelp}",
   cmdGenerateDesc: "Gerar senha. {passwordOutputHelp}",
   cmdRotateDesc: "Aumentar sequencia e gerar nova senha. {passwordOutputHelp}",
+  cmdRotateArgDesc: "Delta da sequencia (padrao +1, suporta +/-N)",
   cmdLanguageDesc: "Definir ou mostrar idioma do CLI",
   cmdLanguageArgDesc: "Codigo de idioma (en, zh-CN, fr, ja, ko, de, es, pt)",
   passwordOutputHelp: "Padrao copia para area de transferencia e nao mostra texto em claro",

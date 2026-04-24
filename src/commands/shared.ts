@@ -111,15 +111,15 @@ export async function createEntryInteractively(store: StoreData): Promise<Passwo
   };
 }
 
-export async function maybeCreateEntry(store: StoreData): Promise<boolean> {
+export async function maybeCreateEntry(store: StoreData): Promise<PasswordEntry | undefined> {
   const shouldCreate = await confirm({
     message: await t("askCreateEntry"),
     default: store.entries.length === 0
   });
   if (!shouldCreate) {
-    return false;
+    return undefined;
   }
   const entry = await createEntryInteractively(store);
   store.entries.push(entry);
-  return true;
+  return entry;
 }

@@ -69,8 +69,16 @@ async function bootstrap(): Promise<void> {
   program
     .command("rotate")
     .description(await t("cmdRotateDesc", { passwordOutputHelp }))
+    .argument("[delta]", await t("cmdRotateArgDesc"))
     .option("-p, --print", printOptionHelp)
-    .action((opts: { print?: boolean }) => runWithGuard(() => rotateCommand({ print: Boolean(opts.print) })));
+    .action((deltaRaw: string | undefined, opts: { print?: boolean }) =>
+      runWithGuard(() =>
+        rotateCommand({
+          print: Boolean(opts.print),
+          delta: deltaRaw === undefined ? 1 : Number.parseInt(deltaRaw, 10)
+        })
+      )
+    );
 
   await program.parseAsync(process.argv);
 }

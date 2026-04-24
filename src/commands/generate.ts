@@ -9,12 +9,12 @@ export async function generateCommand(options: PasswordCliOutputOptions = {}): P
     throw new Error(await t("cmdNotInitialized"));
   }
 
-  const changed = await maybeCreateEntry(store);
-  if (changed) {
+  const createdEntry = await maybeCreateEntry(store);
+  if (createdEntry) {
     await writeStore(store);
   }
 
-  const selected = await selectEntry(store.entries);
+  const selected = createdEntry ?? (await selectEntry(store.entries));
   const seed = await promptMasterPasswordDecryptSeed(store.account);
   const password = await generatePassword(seed, selected);
   if (options.print) {
