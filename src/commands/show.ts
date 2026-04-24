@@ -5,16 +5,17 @@ import { promptMasterPasswordDecryptSeed, selectEntry } from "./shared.js";
 
 /** 仅查看当前序列下生成的密码，不创建新条目、不轮换序列 */
 export async function showCommand(options: PasswordCliOutputOptions = {}): Promise<void> {
-  const store = await readStore();
-  if (!store.account) {
+  const bootstrapStore = await readStore();
+  if (!bootstrapStore.account) {
     throw new Error(await t("cmdNotInitialized"));
   }
+  const seed = await promptMasterPasswordDecryptSeed(bootstrapStore.account);
+  const store = await readStore({ seed });
   if (store.entries.length === 0) {
     throw new Error(await t("cmdNoEntriesCreate"));
   }
 
   const selected = await selectEntry(store.entries);
-  const seed = await promptMasterPasswordDecryptSeed(store.account);
   const password = await generatePassword(seed, selected);
   if (options.print) {
     console.log(

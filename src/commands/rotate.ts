@@ -13,10 +13,12 @@ const SEQUENCE_MIN = 0;
 const SEQUENCE_MAX = 10000;
 
 export async function rotateCommand(options: RotateCliOptions = {}): Promise<void> {
-  const store = await readStore();
-  if (!store.account) {
+  const bootstrapStore = await readStore();
+  if (!bootstrapStore.account) {
     throw new Error(await t("cmdNotInitialized"));
   }
+  const seed = await promptMasterPasswordDecryptSeed(bootstrapStore.account);
+  const store = await readStore({ seed });
   const delta = options.delta ?? 1;
   if (!Number.isInteger(delta)) {
     throw new Error(await t("rotateDeltaInvalid"));
@@ -28,9 +30,8 @@ export async function rotateCommand(options: RotateCliOptions = {}): Promise<voi
   }
   const rotated = { ...entry, sequence: nextSequence };
   store.entries = updateEntry(store.entries, rotated);
-  await writeStore(store);
+  await writeStore(store, { seed });
 
-  const seed = await promptMasterPasswordDecryptSeed(store.account);
   const password = await generatePassword(seed, rotated);
   console.log(await t("rotateDone", { name: rotated.name, seq: rotated.sequence }));
   if (options.print) {
