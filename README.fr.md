@@ -33,7 +33,7 @@ password-use --help
 - Generation deterministe et rotation des mots de passe (mnemonique + mot de passe maitre)
 - Stockage local chiffre du seed (aucun envoi serveur)
 - Prise en charge de `normal / strong / number`
-- Copie dans le presse-papiers par defaut (`--print` pour afficher en clair)
+- Copie dans le presse-papiers par defaut (`--print` affiche uniquement en clair, sans copie)
 
 ## Commandes courantes
 

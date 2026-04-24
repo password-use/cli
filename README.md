@@ -33,7 +33,7 @@ password-use --help
 - Deterministic, rotatable password generation from mnemonic + master password
 - Local encrypted seed storage (no server upload)
 - Supports `normal / strong / number` strengths
-- Copies password to clipboard by default (use `--print` to display plaintext)
+- Copies password to clipboard by default (`--print` displays plaintext only and skips clipboard)
 
 ## Common Commands
 
@@ -41,6 +41,9 @@ password-use --help
 password-use init
 password-use import
 password-use list
+password-use logout
+password-use language
+password-use language zh-CN
 password-use generate
 password-use show
 password-use rotate

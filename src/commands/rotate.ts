@@ -5,13 +5,14 @@ import {
   updateEntry,
   writeStore
 } from "@password-use/crypto-adapter";
+import { t } from "../i18n.js";
 import type { PasswordCliOutputOptions } from "../types.js";
 import { promptMasterPasswordDecryptSeed, selectEntry } from "./shared.js";
 
 export async function rotateCommand(options: PasswordCliOutputOptions = {}): Promise<void> {
   const store = await readStore();
   if (!store.account) {
-    throw new Error("账号未初始化，请先执行 init");
+    throw new Error(await t("cmdNotInitialized"));
   }
   const entry = await selectEntry(store.entries);
   const rotated = { ...entry, sequence: entry.sequence + 1 };
@@ -20,12 +21,12 @@ export async function rotateCommand(options: PasswordCliOutputOptions = {}): Pro
 
   const seed = await promptMasterPasswordDecryptSeed(store.account);
   const password = await generatePassword(seed, rotated);
-  console.log(`已轮换 ${rotated.name} 到 sequence=${rotated.sequence}`);
-  await copyToClipboard(password);
+  console.log(await t("rotateDone", { name: rotated.name, seq: rotated.sequence }));
   if (options.print) {
-    console.log(`新密码: ${password}`);
-    console.log("已同时复制到剪贴板。");
+    console.log(await t("newPassword", { password }));
+    return;
   } else {
-    console.log("新密码已复制到剪贴板（未在终端显示明文）。");
+    await copyToClipboard(password);
+    console.log(await t("rotateCopied"));
   }
 }

@@ -33,7 +33,7 @@ password-use --help
 - 基于助记词 + 主密码生成可重复、可轮换的密码
 - 本地加密保存 seed（不会上传到服务器）
 - 支持 `normal / strong / number` 三种强度
-- 默认复制到剪贴板，不在终端输出明文（可选 `--print`）
+- 默认复制到剪贴板，不在终端输出明文（`--print` 仅打印明文，不复制到剪贴板）
 
 ## 常用命令
 
@@ -41,6 +41,9 @@ password-use --help
 password-use init
 password-use import
 password-use list
+password-use logout
+password-use language
+password-use language zh-CN
 password-use generate
 password-use show
 password-use rotate

@@ -33,7 +33,7 @@ password-use --help
 - Deterministische, rotierbare Passworterzeugung aus Mnemonic + Master-Passwort
 - Lokal verschluesselte Seed-Speicherung (kein Server-Upload)
 - Unterstuetzt `normal / strong / number`
-- Kopiert standardmaessig in die Zwischenablage (`--print` fuer Klartextausgabe)
+- Kopiert standardmaessig in die Zwischenablage (`--print` zeigt nur Klartext an und kopiert nicht)
 
 ## Haeufige Befehle
 

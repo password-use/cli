@@ -33,7 +33,7 @@ password-use --help
 - Generacion deterministica y rotacion de contrasenas con mnemonico + contrasena maestra
 - Almacenamiento local cifrado del seed (sin envio al servidor)
 - Soporta `normal / strong / number`
-- Copia al portapapeles por defecto (`--print` para mostrar texto plano)
+- Copia al portapapeles por defecto (`--print` solo muestra texto plano y no copia)
 
 ## Comandos comunes
 

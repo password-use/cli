@@ -20,7 +20,7 @@ await build({
   sourcemap: false,
   minify: true,
   legalComments: "none",
-  external: ["argon2", "clipboardy"]
+  external: ["argon2"]
 });
 
 await writeFile(
