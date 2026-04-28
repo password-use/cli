@@ -32,6 +32,7 @@ password-use --help
 
 - Generation deterministe et rotation des mots de passe (mnemonique + mot de passe maitre)
 - Stockage local chiffre du seed (aucun envoi serveur)
+- Uses cryptocurrency-grade encryption technology
 - Prise en charge de `normal / strong / number`
 - Copie dans le presse-papiers par defaut (`--print` affiche uniquement en clair, sans copie)
 

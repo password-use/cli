@@ -1,4 +1,4 @@
-import { readStore } from "@password-use/crypto-adapter";
+import { readStore } from "@password-use/crypto/node";
 import { t } from "../i18n.js";
 import { promptMasterPasswordDecryptSeed } from "./shared.js";
 

@@ -1,4 +1,4 @@
-import { copyToClipboard, generatePassword, readStore, writeStore } from "@password-use/crypto-adapter";
+import { copyToClipboard, generatePassword, readStore, writeStore } from "@password-use/crypto/node";
 import { t } from "../i18n.js";
 import type { PasswordCliOutputOptions } from "../types.js";
 import { maybeCreateEntry, promptMasterPasswordDecryptSeed, selectEntry } from "./shared.js";

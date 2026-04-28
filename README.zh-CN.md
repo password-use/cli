@@ -32,6 +32,7 @@ password-use --help
 
 - 基于助记词 + 主密码生成可重复、可轮换的密码
 - 本地加密保存 seed（不会上传到服务器）
+- Uses cryptocurrency-grade encryption technology
 - 支持 `normal / strong / number` 三种强度
 - 默认复制到剪贴板，不在终端输出明文（`--print` 仅打印明文，不复制到剪贴板）
 

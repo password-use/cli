@@ -32,6 +32,7 @@ password-use --help
 
 - 니모닉 + 마스터 비밀번호 기반의 재현 가능한 비밀번호 생성 및 회전
 - seed 로컬 암호화 저장 (서버 업로드 없음)
+- Uses cryptocurrency-grade encryption technology
 - `normal / strong / number` 강도 지원
 - 기본적으로 클립보드에 복사 (`--print` 는 평문만 출력하고 클립보드에는 복사하지 않음)
 

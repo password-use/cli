@@ -32,6 +32,7 @@ password-use --help
 
 - Deterministic, rotatable password generation from mnemonic + master password
 - Local encrypted seed storage (no server upload)
+- Uses cryptocurrency-grade encryption technology
 - Supports `normal / strong / number` strengths
 - Copies password to clipboard by default (`--print` displays plaintext only and skips clipboard)
 

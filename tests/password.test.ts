@@ -4,14 +4,14 @@ import {
   encryptSeed,
   generatePassword,
   interleaveBytes
-} from "@password-use/crypto-adapter";
-import type { PasswordEntry } from "@password-use/sdk-types";
+} from "@password-use/crypto/node";
+import type { PasswordEntry } from "@password-use/crypto/types";
 
 describe("crypto", () => {
-  it("should encrypt and decrypt seed with same password", () => {
+  it("should encrypt and decrypt seed with same password", async () => {
     const seed = "abandon ability able about above absent absorb abstract absurd abuse access accident";
-    const encrypted = encryptSeed(seed, "master-pass");
-    const decrypted = decryptSeed(encrypted, "master-pass");
+    const encrypted = await encryptSeed(seed, "master-pass");
+    const decrypted = await decryptSeed(encrypted, "master-pass");
     expect(decrypted).toBe(seed);
   });
 });

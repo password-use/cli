@@ -4,7 +4,7 @@ import {
   readStore,
   updateEntry,
   writeStore
-} from "@password-use/crypto-adapter";
+} from "@password-use/crypto/node";
 import { t } from "../i18n.js";
 import type { RotateCliOptions } from "../types.js";
 import { promptMasterPasswordDecryptSeed, selectEntry } from "./shared.js";

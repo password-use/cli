@@ -32,6 +32,7 @@ password-use --help
 
 - Generacion deterministica y rotacion de contrasenas con mnemonico + contrasena maestra
 - Almacenamiento local cifrado del seed (sin envio al servidor)
+- Uses cryptocurrency-grade encryption technology
 - Soporta `normal / strong / number`
 - Copia al portapapeles por defecto (`--print` solo muestra texto plano y no copia)
 

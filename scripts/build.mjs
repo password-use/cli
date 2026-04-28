@@ -19,8 +19,7 @@ await build({
   target: "node20",
   sourcemap: false,
   minify: true,
-  legalComments: "none",
-  external: ["argon2"]
+  legalComments: "none"
 });
 
 await writeFile(

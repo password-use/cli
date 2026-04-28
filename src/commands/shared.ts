@@ -1,6 +1,6 @@
 import { confirm, input, password, select } from "@inquirer/prompts";
-import { decryptSeed } from "@password-use/crypto-adapter";
-import type { EncryptedSeed, PasswordEntry, PasswordStrength, StoreData } from "@password-use/sdk-types";
+import { decryptSeed } from "@password-use/crypto/node";
+import type { EncryptedSeed, PasswordEntry, PasswordStrength, StoreData } from "@password-use/crypto/types";
 import { t } from "../i18n.js";
 
 const MASTER_DECRYPT_MAX_ATTEMPTS = 2;
@@ -18,7 +18,7 @@ export async function promptMasterPasswordDecryptSeed(account: EncryptedSeed): P
       throw new Error(await t("askMasterRequired"));
     }
     try {
-      return decryptSeed(account, masterPassword);
+      return await decryptSeed(account, masterPassword);
     } catch {
       if (attempt >= MASTER_DECRYPT_MAX_ATTEMPTS) {
         throw new Error(await t("askMasterRetry"));

@@ -1,5 +1,5 @@
 import { confirm } from "@inquirer/prompts";
-import { readStore } from "@password-use/crypto-adapter";
+import { readStore } from "@password-use/crypto/node";
 import { rm } from "node:fs/promises";
 import { homedir } from "node:os";
 import { join } from "node:path";

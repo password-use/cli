@@ -32,6 +32,7 @@ password-use --help
 
 - Geracao deterministica e rotacao de senhas com mnemotecnico + senha mestra
 - Armazenamento local criptografado do seed (sem envio para servidor)
+- Uses cryptocurrency-grade encryption technology
 - Suporte a `normal / strong / number`
 - Copia para a area de transferencia por padrao (`--print` apenas mostra texto em claro e nao copia)
 

@@ -32,6 +32,7 @@ password-use --help
 
 - ニーモニック + マスターパスワードから再現可能なパスワードを生成
 - seed をローカルで暗号化保存（サーバー送信なし）
+- Uses cryptocurrency-grade encryption technology
 - `normal / strong / number` の強度をサポート
 - デフォルトでクリップボードへコピー（`--print` は平文表示のみ、クリップボードにはコピーしない）
 
